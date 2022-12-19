@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SVG Editor</title>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="container">
+        <h1 class="h1-text">SVG Editor</h1>
+        <!-- <nav class="actionBar"> -->
+        <button class="btnSquare btn">
+          <img src="square.png" width="30px" height="30px" />
+        </button>
+        <button class="btnCircle btn">
+          <img src="circle.png" width="30px" height="30px" />
+        </button>
+        <button class="btnLine btn">
+          <img src="line-segment.png" width="30px " height="30px" />
+        </button>
+        <button class="btnEraseAll btn">
+          <img src="eraser.png" width="30px" height="30px" />
+        </button>
+
+        <select class="spinnerColor btn">
+          <option class="blueColor">Blue</option>
+          <option class="crimsonColor">Crimson</option>
+          <option class="greenColor">Green</option>
+          <option class="yellowColor">Yellow</option>
+        </select>
+        <!-- </nav> -->
+      </div>
+    </header>
+    <svg></svg>
+    <script src="script.js"></script>
+  </body>
+</html>
