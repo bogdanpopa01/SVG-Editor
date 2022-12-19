@@ -6,24 +6,24 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
-    <header class="main-header">
+    <header id="main-header" class="main-header">
       <div class="container">
         <h1 class="h1-text">SVG Editor</h1>
         <!-- <nav class="actionBar"> -->
-        <button class="btnSquare btn">
+        <button id="btnSquare" class="btnSquare btn">
           <img src="square.png" width="30px" height="30px" />
         </button>
-        <button class="btnCircle btn">
+        <button id="btnCircle" class="btnCircle btn">
           <img src="circle.png" width="30px" height="30px" />
         </button>
-        <button class="btnLine btn">
+        <button id="btnLine" class="btnLine btn">
           <img src="line-segment.png" width="30px " height="30px" />
         </button>
-        <button class="btnEraseAll btn">
+        <button id="btnEraseAll" class="btnEraseAll btn">
           <img src="eraser.png" width="30px" height="30px" />
         </button>
 
-        <select class="spinnerColor btn">
+        <select id="spinnerColor" class="spinnerColor btn">
           <option class="blueColor">Blue</option>
           <option class="crimsonColor">Crimson</option>
           <option class="greenColor">Green</option>
@@ -32,7 +32,23 @@
         <!-- </nav> -->
       </div>
     </header>
-    <svg></svg>
+    <svg id="mySvg"></svg>
+
+    <g id="elemente"> </g>
+
+    <square id="square" x="200" y="100" width="300" height="300"></square>
+
+    <circle
+      id="circle"
+      cx="50"
+      cy="50"
+      r="40"
+      stroke="black"
+      stroke-width="3"
+      fill="red"
+    />
+    <line id="line" x1="50" , y1="50" , x2="100" , y2="100"></line>
+
     <script src="script.js"></script>
   </body>
 </html>
