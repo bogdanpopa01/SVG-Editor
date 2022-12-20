@@ -4,20 +4,15 @@ function myApp() {
   let mySvg = document.querySelector("#mySvg");
   let mainHeader = document.querySelector("#main-header");
 
+  // it is actually a rectangle
   let square = document.querySelector("#square");
   let circle = document.querySelector("#circle");
   let line = document.querySelector("#line");
 
   let value = "square";
   let select = document.querySelector("#spinnerColor");
-  let moving = false;
 
   elemente = document.querySelector("#elemente");
-  let mx = 0,
-    my = 0,
-    x1 = 0,
-    y1 = 0;
-
   let btnSquare = document.querySelector("#btnSquare");
   let btnCircle = document.querySelector("#btnCircle");
   let btnLine = document.querySelector("#btnLine");
@@ -60,14 +55,19 @@ function myApp() {
   });
 
   let selected = { valoare: value, tip: null };
+  let mouseMovement = false;
+  let x1 = 0,
+    y1 = 0,
+    myX = 0,
+    myY = 0;
   function draw() {
-    if (moving) {
+    if (mouseMovement) {
       if (value === "square") {
         square.style.display = "block";
-        square.setAttributeNS(null, "x", Math.min(x1, mx));
-        square.setAttributeNS(null, "y", Math.min(y1, my));
-        square.setAttributeNS(null, "width", Math.abs(mx - x1));
-        square.setAttributeNS(null, "height", Math.abs(my - y1));
+        square.setAttributeNS(null, "x", Math.min(x1, myX));
+        square.setAttributeNS(null, "y", Math.min(y1, myY));
+        square.setAttributeNS(null, "width", Math.abs(myX - x1));
+        square.setAttributeNS(null, "height", Math.abs(myY - y1));
       } else if (value === "circle") {
         circle.style.display = "block";
         circle.setAttributeNS(null, "cx", x1);
@@ -75,14 +75,14 @@ function myApp() {
         circle.setAttributeNS(
           null,
           "r",
-          Math.max(Math.abs(mx - x1), Math.abs(my - y1))
+          Math.max(Math.abs(myX - x1), Math.abs(myY - y1))
         );
       } else if (value === "line") {
         line.style.display = "block";
         line.setAttributeNS(null, "x1", x1);
         line.setAttributeNS(null, "y1", y1);
-        line.setAttributeNS(null, "x2", mx);
-        line.setAttributeNS(null, "y2", my);
+        line.setAttributeNS(null, "x2", myX);
+        line.setAttributeNS(null, "y2", myY);
       }
     } else {
       square.style.display = "none";
@@ -93,8 +93,8 @@ function myApp() {
   }
   draw();
   mySvg.addEventListener("mousemove", (e) => {
-    mx = e.clientX - mySvg.getBoundingClientRect().left;
-    my = e.clientY - mySvg.getBoundingClientRect().top;
+    myX = e.clientX - mySvg.getBoundingClientRect().left;
+    myY = e.clientY - mySvg.getBoundingClientRect().top;
   });
 
   mySvg.addEventListener("mousedown", (e) => {
@@ -102,9 +102,9 @@ function myApp() {
     if (e.button !== 0) {
       return;
     }
-    moving = true;
-    x1 = mx;
-    y1 = my;
+    mouseMovement = true;
+    x1 = myX;
+    y1 = myY;
   });
 
   mySvg.addEventListener("mouseup", (e) => {
@@ -118,10 +118,10 @@ function myApp() {
         "rect"
       );
       square.style.fill = select.value;
-      square.setAttributeNS(null, "x", Math.min(x1, mx));
-      square.setAttributeNS(null, "y", Math.min(y1, my));
-      square.setAttributeNS(null, "width", Math.abs(mx - x1));
-      square.setAttributeNS(null, "height", Math.abs(my - y1));
+      square.setAttributeNS(null, "x", Math.min(x1, myX));
+      square.setAttributeNS(null, "y", Math.min(y1, myY));
+      square.setAttributeNS(null, "width", Math.abs(myX - x1));
+      square.setAttributeNS(null, "height", Math.abs(myY - y1));
       elemente.append(square);
 
       square.addEventListener("contextmenu", (e) => {
@@ -140,7 +140,7 @@ function myApp() {
       circle.setAttributeNS(
         null,
         "r",
-        Math.max(Math.abs(mx - x1), Math.abs(my - y1))
+        Math.max(Math.abs(myX - x1), Math.abs(myY - y1))
       );
 
       elemente.append(circle);
@@ -155,8 +155,8 @@ function myApp() {
       line.style.display = "block";
       line.setAttributeNS(null, "x1", x1);
       line.setAttributeNS(null, "y1", y1);
-      line.setAttributeNS(null, "x2", mx);
-      line.setAttributeNS(null, "y2", my);
+      line.setAttributeNS(null, "x2", myX);
+      line.setAttributeNS(null, "y2", myY);
       elemente.append(line);
 
       line.addEventListener("contextmenu", (e) => {
@@ -166,7 +166,7 @@ function myApp() {
       });
     }
 
-    moving = false;
+    mouseMovement = false;
   });
 
   document.addEventListener("keydown", (e) => {

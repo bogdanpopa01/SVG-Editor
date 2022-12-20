@@ -11,7 +11,7 @@
         <h1 class="h1-text">SVG Editor</h1>
         <!-- <nav class="actionBar"> -->
         <button id="btnSquare" class="btnSquare btn">
-          <img src="square.png" width="30px" height="30px" />
+          <img src="rectangle.png" width="30px" height="30px" />
         </button>
         <button id="btnCircle" class="btnCircle btn">
           <img src="circle.png" width="30px" height="30px" />
@@ -20,7 +20,7 @@
           <img src="line-segment.png" width="30px " height="30px" />
         </button>
         <button id="btnEraseAll" class="btnEraseAll btn">
-          <img src="eraser.png" width="30px" height="30px" />
+          <img src="trash.png" width="30px" height="30px" />
         </button>
 
         <select id="spinnerColor" class="spinnerColor btn">
@@ -35,19 +35,10 @@
 
     <svg id="mySvg">
       <g id="elemente"></g>
-
-      <rect id="square" x="200" y="100" width="100" height="100"></rect>
-
-      <circle
-        id="circle"
-        cx="50"
-        cy="50"
-        r="40"
-        stroke="black"
-        stroke-width="3"
-        fill="red"
-      />
-      <line id="line" x1="50" , y1="50" , x2="100" , y2="100"></line>
+      <line id="line"></line>
+      <!-- it is actually a rectangle -->
+      <rect id="square"></rect>
+      <circle id="circle" />
     </svg>
     <script src="script.js"></script>
   </body>
