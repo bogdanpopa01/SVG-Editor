@@ -10,15 +10,16 @@
       <div class="container">
         <h1 class="h1-text">SVG Editor</h1>
         <!-- <nav class="actionBar"> -->
+        <button id="btnLine" class="btnLine btn">
+          <img src="line-segment.png" width="30px " height="30px" />
+        </button>
         <button id="btnSquare" class="btnSquare btn">
           <img src="rectangle.png" width="30px" height="30px" />
         </button>
         <button id="btnCircle" class="btnCircle btn">
           <img src="circle.png" width="30px" height="30px" />
         </button>
-        <button id="btnLine" class="btnLine btn">
-          <img src="line-segment.png" width="30px " height="30px" />
-        </button>
+
         <button id="btnEraseAll" class="btnEraseAll btn">
           <img src="trash.png" width="30px" height="30px" />
         </button>
@@ -34,7 +35,7 @@
     </header>
 
     <svg id="mySvg">
-      <g id="elemente"></g>
+      <g id="elements"></g>
       <line id="line"></line>
       <!-- it is actually a rectangle -->
       <rect id="square"></rect>
