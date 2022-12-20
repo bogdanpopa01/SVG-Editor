@@ -1,18 +1,20 @@
 function myApp() {
-  let mySvg = document.querySelector("#mySvg");
-  let mainHeader = document.querySelector("#main-header");
+  let mySvg = document.getElementById("mySvg");
+  let mainHeader = document.getElementById("main-header");
 
-  let line = document.querySelector("#line");
+  let line = document.getElementById("line");
   // it is actually a rectangle
-  let square = document.querySelector("#square");
-  let circle = document.querySelector("#circle");
-  let color = document.querySelector("#spinnerColor");
+  let square = document.getElementById("square");
+  let circle = document.getElementById("circle");
+  let color = document.getElementById("spinnerColor");
 
-  let btnLine = document.querySelector("#btnLine");
-  let btnSquare = document.querySelector("#btnSquare");
-  let btnCircle = document.querySelector("#btnCircle");
-  let btnEraseAll = document.querySelector("#btnEraseAll");
-  let elements = document.querySelector("#elements");
+  let btnLine = document.getElementById("btnLine");
+  let btnSquare = document.getElementById("btnSquare");
+  let btnCircle = document.getElementById("btnCircle");
+  let btnErase = document.getElementById("btnErase");
+  let btnEraseAll = document.getElementById("btnEraseAll");
+  let btnHelp = document.getElementById("btnHelp");
+  let elements = document.getElementById("elements");
 
   function drawSquare() {
     console.log("Rectangle");
@@ -36,8 +38,25 @@ function myApp() {
 
   function eraseAll() {
     console.log("EraseAll button");
-    while (elements.children.length > 0) {
-      elements.children[0].remove();
+    if (elements.children.length > 0) {
+      while (elements.children.length > 0) {
+        elements.children[0].remove();
+      }
+    } else {
+      alert("There are no elements to erase!");
+    }
+  }
+
+  function eraseElement() {
+    console.log("Erase element button");
+    if (elements.children.length > 0) {
+      if (obj !== null) {
+        obj.type.remove();
+        obj.val = null;
+        obj.type = null;
+      }
+    } else {
+      alert("There is no element to erase!");
     }
   }
 
@@ -45,6 +64,12 @@ function myApp() {
   btnSquare.addEventListener("click", drawSquare);
   btnCircle.addEventListener("click", drawCircle);
   btnEraseAll.addEventListener("click", eraseAll);
+  btnErase.addEventListener("click", eraseElement);
+  btnHelp.addEventListener("click", (e) => {
+    alert(
+      "To delete an element use the forth button (the eraser). First, right-click the element you want to erase, then press the button. The fifth button(the bin) is used to automatically delete one or more elements."
+    );
+  });
 
   let value = "square";
   let obj = { val: value, type: null };
@@ -86,6 +111,9 @@ function myApp() {
     requestAnimationFrame(draw);
   }
   draw();
+
+  // so that you can't right-click in the svg area
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
 
   mySvg.addEventListener("mousemove", (e) => {
     myX = e.clientX - mySvg.getBoundingClientRect().left;
@@ -160,14 +188,8 @@ function myApp() {
         obj.type = e.target;
       });
     }
-    mouseMovement = false;
-  });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "d" && obj !== null) {
-      obj.type.remove();
-      obj.type = null;
-    }
+    mouseMovement = false;
   });
 }
 

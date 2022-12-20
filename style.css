@@ -63,15 +63,20 @@ svg {
 .btnCircle,
 .btnSquare,
 .btnLine,
-.btnEraseAll {
+.btnEraseAll,
+.btnErase,
+.btnHelp {
   cursor: pointer;
 }
 
 .btnCircle:hover,
 .btnSquare:hover,
 .btnEraseAll:hover,
-.btnLine:hover {
+.btnLine:hover,
+.btnErase:hover,
+.btnHelp:hover {
   background-color: #fde68a;
+  /* cursor: pointer; */
 }
 
 svg rect,
