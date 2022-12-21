@@ -63,53 +63,26 @@ function myApp() {
     );
   });
 
-  const createStyleElementFromCSS = () => {
-    const sheet = document.styleSheets[0];
-
-    const styleRules = [];
-    for (let i = 0; i < sheet.cssRules.length; i++)
-      styleRules.push(sheet.cssRules.item(i).cssText);
-
-    const style = document.createElement("style");
-    style.type = "text/css";
-    style.appendChild(document.createTextNode(styleRules.join(" ")));
-
-    return style;
-  };
-
   btnDownload.addEventListener("click", (e) => {
     console.log("Download button");
     let svg = document.getElementById("mySvg");
-    const style = createStyleElementFromCSS();
-    for (let i = 0; i < svg.length; i++) {
-      svg.insertBefore(style, svg.child[i]);
-    }
-    const data = new XMLSerializer().serializeToString(svg);
-    const svgBlob = new Blob([data], {
+    let data = new XMLSerializer().serializeToString(svg);
+    let svgBlob = new Blob([data], {
       type: "image/svg+xml;charset=utf-8",
     });
-    style.remove();
-    const url = URL.createObjectURL(svgBlob);
-    const img = new Image();
-    img.addEventListener("load", () => {
-      //   // (Next step: Image to Canvas)
-    });
+    let url = URL.createObjectURL(svgBlob);
+    let img = new Image();
     img.src = url;
     img.addEventListener("load", () => {
-      // draw the image on an ad-hoc canvas
-      const bbox = svg.getBBox();
-
-      const canvas = document.createElement("canvas");
+      let bbox = svg.getBoundingClientRect();
+      let canvas = document.createElement("canvas");
       canvas.width = bbox.width;
       canvas.height = bbox.height;
-
-      const context = canvas.getContext("2d");
+      let context = canvas.getContext("2d");
       context.drawImage(img, 0, 0, bbox.width, bbox.height);
-
       URL.revokeObjectURL(url);
 
-      // trigger a synthetic download operation with a temporary link
-      const a = document.createElement("a");
+      let a = document.createElement("a");
       a.download = "image.png";
       document.body.appendChild(a);
       a.href = canvas.toDataURL();
