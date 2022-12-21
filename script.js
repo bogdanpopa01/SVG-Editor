@@ -1,6 +1,8 @@
 function myApp() {
   let mySvg = document.getElementById("mySvg");
-  let mainHeader = document.getElementById("main-header");
+  // used not to let the user right-click onto the svg area
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  let elements = document.getElementById("elements");
 
   let line = document.getElementById("line");
   // it is actually a rectangle
@@ -14,27 +16,19 @@ function myApp() {
   let btnErase = document.getElementById("btnErase");
   let btnEraseAll = document.getElementById("btnEraseAll");
   let btnHelp = document.getElementById("btnHelp");
-  let elements = document.getElementById("elements");
 
-  function drawSquare() {
-    console.log("Rectangle");
-    value = "square";
-  }
+  let value = "line";
+  let obj = { val: value, type: null };
 
-  function drawCircle() {
-    console.log("Circle");
-    value = "circle";
-  }
-
-  function drawLine() {
-    console.log("Line");
+  btnLine.addEventListener("click", (e) => {
     value = "line";
-  }
-
-  function selectedColor() {
-    console.log("Selected color");
-    let value = color.value;
-  }
+  });
+  btnSquare.addEventListener("click", (e) => {
+    value = "square";
+  });
+  btnCircle.addEventListener("click", (e) => {
+    value = "circle";
+  });
 
   function eraseAll() {
     console.log("EraseAll button");
@@ -60,9 +54,6 @@ function myApp() {
     }
   }
 
-  btnLine.addEventListener("click", drawLine);
-  btnSquare.addEventListener("click", drawSquare);
-  btnCircle.addEventListener("click", drawCircle);
   btnEraseAll.addEventListener("click", eraseAll);
   btnErase.addEventListener("click", eraseElement);
   btnHelp.addEventListener("click", (e) => {
@@ -71,8 +62,6 @@ function myApp() {
     );
   });
 
-  let value = "square";
-  let obj = { val: value, type: null };
   let mouseMovement = false;
   let x1 = 0,
     y1 = 0,
@@ -112,8 +101,10 @@ function myApp() {
   }
   draw();
 
-  // so that you can't right-click in the svg area
-  document.addEventListener("contextmenu", (e) => e.preventDefault());
+  function selectedColor() {
+    console.log("Selected color");
+    let value = color.value;
+  }
 
   mySvg.addEventListener("mousemove", (e) => {
     myX = e.clientX - mySvg.getBoundingClientRect().left;
@@ -131,6 +122,7 @@ function myApp() {
   });
 
   mySvg.addEventListener("mouseup", (e) => {
+    // if the user doesn't left-click
     if (e.button !== 0) {
       return;
     }
