@@ -32,6 +32,10 @@
           <img src="info.png" width="30px" height="30px" />
         </button>
 
+        <button id="btnDownload" class="btnDownload btn">
+          <img src="export.png" width="30px" height="30px" />
+        </button>
+
         <select id="spinnerColor" class="spinnerColor btn">
           <option class="blueColor">Blue</option>
           <option class="crimsonColor">Crimson</option>
@@ -42,14 +46,15 @@
       </div>
     </header>
 
+    <!-- <canvas id="myCanvas"> -->
     <svg id="mySvg">
       <g id="elements"></g>
       <line id="line"></line>
       <!-- it is actually a rectangle -->
       <rect id="square"></rect>
       <circle id="circle" />
-      <polygon id="triangle"></polygon>
     </svg>
+    <!-- </canvas> -->
     <script src="script.js"></script>
   </body>
 </html>

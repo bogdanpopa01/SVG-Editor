@@ -65,7 +65,8 @@ svg {
 .btnLine,
 .btnEraseAll,
 .btnErase,
-.btnHelp {
+.btnHelp,
+.btnDownload {
   cursor: pointer;
 }
 
@@ -74,7 +75,8 @@ svg {
 .btnEraseAll:hover,
 .btnLine:hover,
 .btnErase:hover,
-.btnHelp:hover {
+.btnHelp:hover,
+.btnDownload:hover {
   background-color: #fde68a;
   /* cursor: pointer; */
 }
