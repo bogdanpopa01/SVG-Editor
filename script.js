@@ -59,27 +59,28 @@ function myApp() {
   btnErase.addEventListener("click", eraseElement);
   btnHelp.addEventListener("click", (e) => {
     alert(
-      "To delete an element use the forth button (the eraser). First, right-click the element you want to erase, then press the button. The fifth button(the bin) is used to automatically delete one or more elements."
+      "To delete an element use the forth button (the eraser). First, right-click the element you want to erase, then press the button. The fifth button(the bin) is used to automatically delete one or more elements. The seventh button is used to export the drawing as a png image."
     );
   });
 
   btnDownload.addEventListener("click", (e) => {
     console.log("Download button");
     let svg = document.getElementById("mySvg");
-    let data = new XMLSerializer().serializeToString(svg);
-    let svgBlob = new Blob([data], {
+    let xmlParser = new XMLSerializer();
+    let data = xmlParser.serializeToString(svg);
+    let blob = new Blob([data], {
       type: "image/svg+xml;charset=utf-8",
     });
-    let url = URL.createObjectURL(svgBlob);
+    let url = URL.createObjectURL(blob);
     let img = new Image();
     img.src = url;
     img.addEventListener("load", () => {
-      let bbox = svg.getBoundingClientRect();
+      let painting = svg.getBoundingClientRect();
       let canvas = document.createElement("canvas");
-      canvas.width = bbox.width;
-      canvas.height = bbox.height;
+      canvas.width = painting.width;
+      canvas.height = painting.height;
       let context = canvas.getContext("2d");
-      context.drawImage(img, 0, 0, bbox.width, bbox.height);
+      context.drawImage(img, 0, 0, painting.width, painting.height);
       URL.revokeObjectURL(url);
 
       let a = document.createElement("a");

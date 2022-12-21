@@ -89,6 +89,10 @@ svg line {
   fill-opacity: 0.2;
 }
 
+svg line {
+  fill: red;
+}
+
 svg #square,
 svg #circle,
 svg #line {
