@@ -68,7 +68,8 @@ function myApp() {
     myX = 0,
     myY = 0;
 
-  function draw() {
+  // function to display the outline of the elements
+  function drawOutline() {
     if (mouseMovement) {
       if (value === "line") {
         line.style.display = "block";
@@ -80,8 +81,8 @@ function myApp() {
         square.style.display = "block";
         square.setAttributeNS(null, "x", Math.min(x1, myX));
         square.setAttributeNS(null, "y", Math.min(y1, myY));
-        square.setAttributeNS(null, "width", Math.abs(myX - x1));
-        square.setAttributeNS(null, "height", Math.abs(myY - y1));
+        square.setAttributeNS(null, "width", Math.abs(x1 - myX));
+        square.setAttributeNS(null, "height", Math.abs(y1 - myY));
       } else if (value === "circle") {
         circle.style.display = "block";
         circle.setAttributeNS(null, "cx", x1);
@@ -89,7 +90,7 @@ function myApp() {
         circle.setAttributeNS(
           null,
           "r",
-          Math.max(Math.abs(myX - x1), Math.abs(myY - y1))
+          Math.max(Math.abs(x1 - myX), Math.abs(y1 - myY))
         );
       }
     } else {
@@ -97,22 +98,23 @@ function myApp() {
       square.style.display = "none";
       circle.style.display = "none";
     }
-    requestAnimationFrame(draw);
+    requestAnimationFrame(drawOutline);
   }
-  draw();
-
-  function selectedColor() {
-    console.log("Selected color");
-    let value = color.value;
-  }
+  drawOutline();
 
   mySvg.addEventListener("mousemove", (e) => {
     myX = e.clientX - mySvg.getBoundingClientRect().left;
     myY = e.clientY - mySvg.getBoundingClientRect().top;
   });
 
+  function selectedColor() {
+    console.log("Selected color");
+    let value = color.value;
+  }
+
   mySvg.addEventListener("mousedown", (e) => {
     selectedColor();
+    // if the user doesn't left-click
     if (e.button !== 0) {
       return;
     }
@@ -127,60 +129,66 @@ function myApp() {
       return;
     }
 
-    if (value === "line") {
-      let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      line.style.display = "block";
-      line.setAttributeNS(null, "x1", x1);
-      line.setAttributeNS(null, "x2", myX);
-      line.setAttributeNS(null, "y1", y1);
-      line.setAttributeNS(null, "y2", myY);
-      elements.append(line);
+    // functions to display the elements when the user releases the left-click
+    function drawTheFroms() {
+      if (value === "line") {
+        let line = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "line"
+        );
+        line.style.display = "block";
+        line.setAttributeNS(null, "x1", x1);
+        line.setAttributeNS(null, "x2", myX);
+        line.setAttributeNS(null, "y1", y1);
+        line.setAttributeNS(null, "y2", myY);
+        elements.append(line);
 
-      line.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        obj.val = e.target.tagName;
-        obj.type = e.target;
-      });
-    } else if (value === "square") {
-      let square = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "rect"
-      );
-      square.style.fill = color.value;
-      square.setAttributeNS(null, "x", Math.min(x1, myX));
-      square.setAttributeNS(null, "y", Math.min(y1, myY));
-      square.setAttributeNS(null, "height", Math.abs(myY - y1));
-      square.setAttributeNS(null, "width", Math.abs(myX - x1));
-      elements.append(square);
+        line.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          obj.val = e.target.tagName;
+          obj.type = e.target;
+        });
+      } else if (value === "square") {
+        let square = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        square.style.fill = color.value;
+        square.setAttributeNS(null, "x", Math.min(x1, myX));
+        square.setAttributeNS(null, "y", Math.min(y1, myY));
+        square.setAttributeNS(null, "width", Math.abs(x1 - myX));
+        square.setAttributeNS(null, "height", Math.abs(y1 - myY));
+        elements.append(square);
 
-      square.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        obj.val = e.target.tagName;
-        obj.type = e.target;
-      });
-    } else if (value === "circle") {
-      let circle = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-      );
-      circle.style.fill = color.value;
-      circle.setAttributeNS(null, "cx", x1);
-      circle.setAttributeNS(null, "cy", y1);
-      circle.setAttributeNS(
-        null,
-        "r",
-        Math.max(Math.abs(myX - x1), Math.abs(myY - y1))
-      );
+        square.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          obj.val = e.target.tagName;
+          obj.type = e.target;
+        });
+      } else if (value === "circle") {
+        let circle = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
+        circle.style.fill = color.value;
+        circle.setAttributeNS(null, "cx", x1);
+        circle.setAttributeNS(null, "cy", y1);
+        circle.setAttributeNS(
+          null,
+          "r",
+          Math.max(Math.abs(x1 - myX), Math.abs(y1 - myY))
+        );
 
-      elements.append(circle);
+        elements.append(circle);
 
-      circle.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        obj.val = e.target.tagName;
-        obj.type = e.target;
-      });
+        circle.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          obj.val = e.target.tagName;
+          obj.type = e.target;
+        });
+      }
     }
-
+    drawTheFroms();
     mouseMovement = false;
   });
 }
