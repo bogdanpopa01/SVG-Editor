@@ -6,9 +6,9 @@ body,
 html {
   margin: 0;
   width: 100%;
-  height: 100%; /*fara asta nu merge svg-u pana la 100% */
+  height: 100%; /* used to allow the svg element to go to the very bottom */
   padding: 0;
-  overflow: hidden; /* ca sa dispara bara aia alba de jos*/
+  overflow: hidden; /* used to eliminate the white bar from the bottom of the page */
 }
 
 .main-header {
